@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-      <v-header></v-header>
-      <div class="tab">
+      <v-header :seller="seller"></v-header>
+      <div class="tab border-1px">
         <router-link tag="div" class="tab-item" :to="{path: '/goods'}" active-class="active">商品</router-link>
         <router-link tag="div" class="tab-item" :to="{path: '/ratings'}" active-class="active">评价</router-link>
         <router-link tag="div" class="tab-item" :to="{path: '/seller'}" active-class="active">商家</router-link>
@@ -16,19 +16,28 @@
 
 <script>
   import vHeader from 'components/header/header'
+  const ERR_OK = 0;
 export default {
   name: 'App',
+  data () {
+    return {
+        seller: {}
+    };
+  },
   components: {
     vHeader
   },
   created () {
-    this.getSeller()
+    this.getSeller();
   },
   methods: {
     getSeller () {
       this.$http.get('/api/seller')
       .then((res) => {
-        console.log(res)
+        if(res.body.errno === ERR_OK) {
+          this.seller = res.body.data;
+          console.log(this.seller)
+        }
       })
     }
   }
@@ -36,12 +45,14 @@ export default {
 </script>
 
 <style lang="stylus">
+@import './common/stylus/mixin.styl'
 #app 
   width: 100%
   .tab
     width: 100%
     display: flex
     font-size: 14px
+    border-1px(#f40)
     .tab-item
       flex: 1
       height: 40px

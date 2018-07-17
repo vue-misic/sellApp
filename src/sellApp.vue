@@ -61,7 +61,29 @@
 				npm install stylus-loader --save
 
 				router-link 点击改变，映射的router-view进行刷新可以用 keep-live进行缓存
-					keep-live
+					keep-alive
 						router-view
+
+				2.1px像素问题 物理像素是设备像素的2倍(iphone6 => 1px => 2px)
+					解决方法：伪类(定位到底部) + 缩放(用一个class去缩放这个伪类的Y轴)
+						需要添加的div后面设置伪类:after定义这条线然后进行缩放看着像1px => 伪类content不要漏写
+						1.mixin中定义一个函数 border-1px($color) => 公用的属性样式集合(函数属性集合)，谁引用谁就有定义的属性
+							stylus引入函数需要@import + 路径 语法
+						2.进行伪类缩放 属性 定义需要缩放的标签添加某个属性就可以了
+							c3的媒体查询属性     @media 媒体类型and （媒体特性）{你的样式}
+
+							@media screen and (min-width:1200px){} 
+
+ 							@media screen and (min-width: 960px) and (max-width: 1199px) {  }
+
+						3.定义一个index的stylus 放在mian.js里全局去引入，就可以全局通用了
+
+						main.js引入的vue,js,style都会成为是全局的 => 引入的css 不需要变量来接收，因为不需要挂载 import '../style/..style'
+
+						记住引入某个文件，在css中用css的语法 @import 在js中引入用的是import
+
+		第六章：header头部
+				1.如果某个组件的数组数据是依靠父组件传递出来的,DOM里用到需要加 v-if这个数组数据的判断，存在才可以渲染
+
 	*/
 </script>
