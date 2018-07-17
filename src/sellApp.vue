@@ -89,6 +89,11 @@
 
 			注意： 计算属性返回的是一个值不是某个函数 isMap是一个值，不能再DOM用 isMap() 只能用isMap
 					所以不能用到传参，直接处理data里的数据
+				
+				vertical-align的使用 => 只有display: inline-block生效  前面是图片后面是文字 height与line-height 一致，设置vertical-align: top 就可以保持对齐
+				如果都是文本 设置vertical-align: 2px 设置具体数值来达到效果
 
+				设置整个头部背景模糊的效果
+					设置一个标签(包裹img)设置绝对定位,z-index: -1; filter: blur(10px) width: 100% height: 100%
 	*/
 </script>
