@@ -17,12 +17,12 @@
                     <span class="text">{{ seller.supports[0].description }}</span>
                 </div>
             </div>
-            <div class="support-count" v-if="seller.supports">
+            <div class="support-count" v-if="seller.supports" @click="showDetail">
                 <span class="count">{{ seller.supports.length }}个</span>
                 <i class="icon-keyboard_arrow_right"></i>
             </div>     
          </div>
-         <div class="bulletin-wrapper">
+         <div class="bulletin-wrapper" @click="showDetail">
              <span class="bulletin-title"></span>
              <span class="bulletin-text">{{ seller.bulletin }}</span>
              <i class="icon-keyboard_arrow_right"></i>
@@ -30,19 +30,41 @@
          <div class="background">
              <img :src="seller.avatar" width="100%" height="100%" alt="" class="">
          </div>
+         <div class="detail" v-show="detailShow">
+             <!-- <div class="detail-wrapper clearfix">
+             </div> -->
+             <div class="detail-wrapper clearfix">
+                 <div class="detail-main">
+                     <div class="name">{{ seller.name }}</div>
+                     <div class="star-wrapper">
+                        <v-star :size="size" :score="score"></v-star> 
+                     </div> 
+                 </div>
+             </div>
+             <div class="fotter" @click="closeDetail">
+                 <i class="icon-close"></i>
+             </div>
+         </div>
 	</div>
 </template>
 
 <script>
+    import vStar from 'components/star/star' 
 	export default {
         name: 'heade',
         data () {
             return {
-                map: ['decrease', 'discount', 'guarantee', 'invoice', 'special']
+                map: ['decrease', 'discount', 'guarantee', 'invoice', 'special'],
+                detailShow: true,
+                size: 48,
+                score: 4.5
             }
         },
         props: {
             seller: [String, Object]
+        },
+        components: {
+            vStar
         },
         computed: {
             //计算属性返回的是一个值不是某个函数 isMap是一个值，不能再DOM用 isMap() 只能用isMap
@@ -57,7 +79,13 @@
         methods: {
             isMap (index) {
                 console.log(this.map[index]);
-                return this.map[index]
+                return this.map[index];
+            },
+            showDetail () {
+                this.detailShow = true;
+            },
+            closeDetail () {
+                this.detailShow = false
             }
         }
     }
@@ -68,6 +96,7 @@
 .heade
     position: relative
     color: #fff
+    overflow: hidden
     background-color: rgba(7,17,27,0.5)
     .content-wrapper
         padding: 24px 12px 18px 24px
@@ -176,4 +205,42 @@
         width: 100%
         height: 100%
         filter: blur(10px)
+    .detail
+        position: fixed
+        top: 0
+        left: 0
+        right: 0
+        bottom: 0
+        width: 100%
+        height: 100%
+        background-color: rgba(7,17,27,0.8)
+        z-index: 100
+        overflow: auto
+    .detail-wrapper
+        width: 100%
+        display: inline-block
+        min-height: 100%
+        .detail-main
+            width: 100%
+            margin-top: 64px
+            padding-bottom: 64px
+            .name
+                font-size: 16px
+                line-height: 16px
+                font-weight: 700
+                text-align: center
+                width: 100%
+            .star-wrapper
+                margin: 16px 0 28px 0
+                text-align: center
+        /*box-sizing: border-box
+        padding-bottom: 64px*/
+    .fotter
+        /*position: relative*/
+        position: relative
+        width: 32px
+        height: 32px
+        font-size: 32px
+        clear: both
+        margin: -64px auto 0 auto
 </style>

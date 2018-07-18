@@ -18,7 +18,7 @@
 		.gitignore => git忽略的目录
 		index.html => 入口html文件 main.js挂载的el就是index里的div(app是index的根组件)
 		package.json => 已安装的依赖名称 scripts里配置脚本 如 npm run dev
-		main.js => 入口js文件 el选项为注入到index的出口文件,vue的实例对象 index为顶级，所有文件最终都归为index的后代
+		main.js => 入口js文件 el选项为注入到index的出口文件,vue的实例对象 index为顶级，所有配置文件最终都归为index的后代, 公用一个vue实例
 			所以vue的api各个组件可以直接访问这个根实例对象 for example this.$emit/this.$ref
 
 			自己的理解mian.js
@@ -78,7 +78,7 @@
 
 						3.定义一个index的stylus 放在mian.js里全局去引入，就可以全局通用了
 
-						main.js引入的vue,js,style都会成为是全局的 => 引入的css 不需要变量来接收，因为不需要挂载 import '../style/..style'
+						main.js引入的vue,js,style都会成为是全局的 => 引入的css 不需要变量来接收，因为不需要挂载 import '../style/..styl'
 
 						记住引入某个文件，在css中用css的语法 @import 在js中引入用的是import
 
@@ -94,6 +94,17 @@
 				如果都是文本 设置vertical-align: 2px 设置具体数值来达到效果
 
 				设置整个头部背景模糊的效果
-					设置一个标签(包裹img)设置绝对定位,z-index: -1; filter: blur(10px) width: 100% height: 100%
+					设置一个标签(包裹img)设置绝对定位,position:absolute; z-index: -1; filter: blur(10px) width: 100% height: 100%
+
+				设置position: fixed;无论标签结构在哪里 width: 100% height:100%都是相对body的
+
+				css sticky fotter => 如果页面内容不够长的时候，页脚块粘贴在视窗底部；如果内容足够长时，页脚块会被内容向下推送。
+				.detail-wraper 设置min-height： 100%  padding-bottom： $height (为了不会被文字覆盖掉X按钮)
+				=> 加clearfix 清除浮动，我也不知道为什么，不加话会出现纵向滚动条
+				.fotter 设置margin-top: -$height
+				
+				
+				评星 => 1.不同的页面用到的星大小不一样
+						2.有全星有半星或者没有星,添加不同的class类，来显示不同的背景，记住补齐五个星，在计算属性里返回
 	*/
 </script>

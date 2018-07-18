@@ -52,7 +52,7 @@ export default {
     width: 100%
     display: flex
     font-size: 14px
-    border-1px(#f40)
+    border-1px(rgba(7,17,27,0.1))
     .tab-item
       flex: 1
       height: 40px
