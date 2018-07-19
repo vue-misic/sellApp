@@ -30,15 +30,36 @@
          <div class="background">
              <img :src="seller.avatar" width="100%" height="100%" alt="" class="">
          </div>
-         <div class="detail" v-show="detailShow">
+         <div class="detail" v-show="detailShow" transition="fade">
              <!-- <div class="detail-wrapper clearfix">
              </div> -->
              <div class="detail-wrapper clearfix">
                  <div class="detail-main">
                      <div class="name">{{ seller.name }}</div>
                      <div class="star-wrapper">
-                        <v-star :size="size" :score="score"></v-star> 
-                     </div> 
+                        <v-star :size="size" :score="seller.score"></v-star> 
+                     </div>
+                     <div class="title">
+                         <div class="line"></div>
+                         <div class="text">优惠信息</div>
+                         <div class="line"></div>  
+                     </div>
+                     <ul class="supports" v-if="seller.supports">
+                         <li v-for="support in seller.supports" :key="support.type" class="support-list">
+                             <span class="icon" :class="map[support.type]"></span>
+                             <!-- <map-class :classtype="support.type"></map-class> -->
+                             <span class="text">{{ support.description }}</span>
+                         </li>
+                     </ul>
+
+                     <div class="title">
+                         <div class="line"></div>
+                         <div class="text">商家公告</div>
+                         <div class="line"></div>  
+                     </div>
+                     <p class="bulltin-text">
+                         {{ seller.bulletin }}
+                     </p> 
                  </div>
              </div>
              <div class="fotter" @click="closeDetail">
@@ -50,21 +71,22 @@
 
 <script>
     import vStar from 'components/star/star' 
+    import mapClass from 'components/map/mapClass' 
 	export default {
         name: 'heade',
         data () {
             return {
                 map: ['decrease', 'discount', 'guarantee', 'invoice', 'special'],
-                detailShow: true,
+                detailShow: false,
                 size: 48,
-                score: 4.5
             }
         },
         props: {
             seller: [String, Object]
         },
         components: {
-            vStar
+            vStar,
+            mapClass
         },
         computed: {
             //计算属性返回的是一个值不是某个函数 isMap是一个值，不能再DOM用 isMap() 只能用isMap
@@ -213,15 +235,25 @@
         bottom: 0
         width: 100%
         height: 100%
+        transition: all 2s
         background-color: rgba(7,17,27,0.8)
         z-index: 100
         overflow: auto
+        backdrop-filter: blur(10px)/* 适用与ios*/
+        &.fade-transtion
+            opacity: 1
+            background-color: rgba(7,17,27,0.8)
+        &.fade-enter,&.fade-leave
+            opacity: 0
+            background-color: rgba(7,17,27,0)
     .detail-wrapper
         width: 100%
         display: inline-block
         min-height: 100%
         .detail-main
             width: 100%
+            box-sizing: border-box
+            padding: 0 36px
             margin-top: 64px
             padding-bottom: 64px
             .name
@@ -233,6 +265,54 @@
             .star-wrapper
                 margin: 16px 0 28px 0
                 text-align: center
+            .title
+                display: flex
+                .line
+                    flex: 1
+                    border-bottom: 1px solid rgba(255,255,255,0.2)
+                    position: relative
+                    top: -8px
+                    left: 0px
+                .text
+                    margin: 0 12px
+                    font-weight: 700
+            .supports
+                margin-top: 24px
+                margin-bottom: 28px
+                .support-list
+                    margin-bottom: 12px
+                    &:last-child
+                        margin-bottom: 0
+                    .icon
+                        display: inline-block
+                        width: 22px
+                        height: 22px
+                        vertical-align: top
+                        margin: 0 6px 0 12px
+                        bgackground-size: 22px 22px
+                        background-repeat: no-repeat
+                        background-position: center
+                        &.decrease
+                            bg-image('decrease_1')
+                        &.discount
+                            bg-image('discount_1')
+                        &.guarantee
+                            bg-image('guarantee_1')
+                        &.invoice
+                            bg-image('invoice_1')
+                        &.special
+                            bg-image('special_1')
+                    .text
+                        display: inline-block
+                        line-height: 22px;
+                        font-size: 12px
+            .bulltin-text
+                margin-top: 24px
+                width: 100%
+                padding: 0 12px
+                box-sizing: border-box
+                font-size: 12px
+                line-height: 24px
         /*box-sizing: border-box
         padding-bottom: 64px*/
     .fotter

@@ -104,7 +104,57 @@
 				.fotter 设置margin-top: -$height
 				
 				
-				评星 => 1.不同的页面用到的星大小不一样
+				评星 => 1.不同的页面用到的星大小不一样(t通过传size里决定)
 						2.有全星有半星或者没有星,添加不同的class类，来显示不同的背景，记住补齐五个星，在计算属性里返回
+
+				flex => flex 布局
+
+					父元素的属性(项目) => 
+						首先 display: flex必须要有
+						flex-direction：属性决定主轴的方向（即项目的排列方向）
+							flex-direction: row | row-reverse | column | column-reverse;
+						flex-wrap： 项目都排在一条线（又称"轴线"）上。flex-wrap属性定义，如果一条轴线排不下，如何换行
+							flex-wrap: nowrap | wrap | wrap-reverse;
+							nowrap（默认）：不换行。wrap：换行，第一行在上方。wrap-reverse：换行，第一行在下方。
+						flex-flow： 属性是flex-direction属性和flex-wrap属性的简写形式，默认值为row nowrap。
+						justify-content：属性定义了项目在主轴上的对齐方式。
+							justify-content: flex-start | flex-end | center | space-between | space-around;
+					     	flex-start（默认值）：左对齐
+					        flex-end：右对齐
+					        center： 居中
+					        space-between：两端对齐，项目之间的间隔都相等。
+					        space-around：每个项目两侧的间隔相等。所以，项目之间的间隔比项目与边框的间隔大一倍。
+					    align-items：属性定义项目在交叉轴上如何对齐。
+					    	 align-items: flex-start | flex-end | center | baseline | stretch;
+						        flex-start：交叉轴的起点对齐。
+						        flex-end：交叉轴的终点对齐。
+						        center：交叉轴的中点对齐。
+						        baseline: 项目的第一行文字的基线对齐。
+						        stretch（默认值）：如果项目未设置高度或设为auto，将占满整个容器的高度。
+
+					子元素的属性(项目) =>
+						order: 0,1,2 => 数值越小，排列越靠前，默认为0
+						flex-grow: 0,1 => 自适应剩余空间
+						flex-shrink： 1，=> 属性定义了项目的缩小比例，默认为1，即如果空间不足，该项目将缩小
+						flex-basis: 350px 属性定义了在分配多余空间之前，项目占据的主轴空间（main size）
+
+						flex 是上面三个的集合 => 0 1 auto   快捷间[auto(1,1,auto),none(0,0,auto)]
+
+				transition:过度
+					标签加 transition="fade" 加transition的class
+					css加 fade-transition => 最后要的那个状态  opcity: 1 (主要用来过渡使用) background: rgba(7,17,27,0.8)
+					fade-enter,fade-leave => opcity : 0 从无到有的意思 
+					过渡的元素设置动画效果 transtion: all 0.5s
+
+				backdrop-filter: blur(10px) => 适用于ios的背景模糊效果
+
+
+		第七章： 
+			上下定高,中间自适应可以滑动
+				foods的视口需要先定义好 => 整个适口就那么大(又要求可以滚动，不影响下面的购物车组件)
+				使用position： absolute; top,bottom将试口占据好固定好大小
+				(如果只知道header,bottom的高度，不知道content/中间高度，又不能让他是自适应只能通过position,top,bottom来控制它)
+
+
 	*/
 </script>
