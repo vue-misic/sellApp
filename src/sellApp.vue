@@ -154,6 +154,10 @@
 				foods的视口需要先定义好 => 整个适口就那么大(又要求可以滚动，不影响下面的购物车组件)
 				使用position： absolute; top,bottom将试口占据好固定好大小
 				(如果只知道header,bottom的高度，不知道content/中间高度，又不能让他是自适应只能通过position,top,bottom来控制它)
+			自己封装了icon通用组件
+				需要传递 size和type值
+
+			父元素 display: table ， 子元素为display： table-cell , vertical-align: middle 这样就达到垂直居中的效果了(table-cell可以等分子盒子)
 
 
 	*/

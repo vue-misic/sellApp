@@ -46,8 +46,8 @@
                      </div>
                      <ul class="supports" v-if="seller.supports">
                          <li v-for="support in seller.supports" :key="support.type" class="support-list">
-                             <span class="icon" :class="map[support.type]"></span>
-                             <!-- <map-class :classtype="support.type"></map-class> -->
+                             <!-- <span class="icon" :class="map[support.type]"></span> -->
+                             <map-class :size=2 :class-type="map[support.type]"></map-class>
                              <span class="text">{{ support.description }}</span>
                          </li>
                      </ul>
@@ -100,7 +100,6 @@
         },
         methods: {
             isMap (index) {
-                console.log(this.map[index]);
                 return this.map[index];
             },
             showDetail () {
@@ -283,13 +282,13 @@
                     margin-bottom: 12px
                     &:last-child
                         margin-bottom: 0
-                    .icon
+                    /*.icon
                         display: inline-block
                         width: 22px
                         height: 22px
                         vertical-align: top
                         margin: 0 6px 0 12px
-                        bgackground-size: 22px 22px
+                        background-size: 22px 22px
                         background-repeat: no-repeat
                         background-position: center
                         &.decrease
@@ -302,6 +301,7 @@
                             bg-image('invoice_1')
                         &.special
                             bg-image('special_1')
+                        */
                     .text
                         display: inline-block
                         line-height: 22px;
