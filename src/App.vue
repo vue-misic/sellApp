@@ -36,7 +36,7 @@ export default {
       .then((res) => {
         if(res.body.errno === ERR_OK) {
           this.seller = res.body.data;
-          console.log(this.seller)
+          // console.log(this.seller)
         }
       })
     }

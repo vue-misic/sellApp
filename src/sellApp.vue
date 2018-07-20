@@ -159,6 +159,20 @@
 
 			父元素 display: table ， 子元素为display： table-cell , vertical-align: middle 这样就达到垂直居中的效果了(table-cell可以等分子盒子)
 
+			better-scroll => 插件
+				实例化以后需要接收一个DOM,第一个参数就是我们 wrapper 的 DOM 对象，第二个是一些配置参数，
+				better-scroll 的初始化时机很重要，因为它在初始化的时候，会计算父元素和子元素的高度和宽度，来决定是否可以纵向和横向滚动
+				因为bscroll的原理是给new window.BScroll传入的DOM对象的第一级子级加上transition动画等
+				拿到ul的高度与外层的wrapper做对比，如果超过外层的高度就会触发Bscroll(所以要两层，1.父级, 2.子集)
+
+				food-list-hook => -hook一般用于被js选择的class
+
+				better-scroll => 类似vue实例，实例化了才可以用他的方法,需要一些配置项才可以使用他的功能 如 new vue({router})才能使用this.$router.push()方法
+				它同理, 配置了probeType： 3 => 向外派发了一个实时坐标, 然后使用this.foodWrapper.on('scroll',(pos) => {
+					回调函数来接受坐标 scrollY = pos.y;
+				})
+
+
 
 	*/
 </script>

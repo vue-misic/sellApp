@@ -18,7 +18,7 @@
             }
        },
        created () {
-        console.log(this.classType)
+        // console.log(this.classType)
        }
     };
 </script>
