@@ -1,6 +1,6 @@
 <template>
 	<div class="goods">
-		 <div class="menu-wrapper" ref="menuWrapper">
+		<div class="menu-wrapper" ref="menuWrapper">
 		 	<ul>
 		 		<li class="menu-item clearfix" v-for="(good, index) in goods" :key="good.name" :class="{current: currentIndex == index}" @click="onIndex(index, $event)">
 		 		<span class="text border-1px">
@@ -9,10 +9,11 @@
 		 		</span>
 		 		</li>
 		 	</ul>
-		 </div>
-		 <p class="drop-down" v-if="dropDown">松手刷新数据...</p>
-		 <div class="foods-wrapper" ref="foodWrapper">
+		</div>
+		 
+		<div class="foods-wrapper" ref="foodWrapper">
 		 	<ul>
+		 		<p class="drop-down" v-if="dropDown">松手刷新数据...</p>
 		 		<li v-for="item in goods" class="food-list food-list-hook">
 		 			<h1 class="title">{{ item.name }}</h1>
 		 			<ul class="food-wrapper">
@@ -36,13 +37,16 @@
 		 			</ul>
 		 		</li>
 		 	</ul>
-		 </div>
+		</div>
+
+		<shop-cart></shop-cart>
 	</div>
 </template>
 
 <script>
 	import BScroll from 'better-scroll'
 	import vMap from 'components/map/mapClass'
+	import shopCart from 'components/shopCart/shopCart'
 	export default {
 		name: 'goods',
 		data () {
@@ -55,7 +59,8 @@
 			}
 		},
 		components: {
-			vMap
+			vMap,
+			shopCart
 		},
 		created () {
 			this.$http.get('api/goods')
@@ -104,15 +109,21 @@
 						fade: true,//// fade 默认为 true，滚动条淡入淡出
 					},
 					probeType: 3,//我们可以使用probeType选项，当此选项设置为 3 时，会在整个滚动过程中实时派发 scroll 事件。从而获取滚动过程中的位置。
-					// pullDownRefresh: {
-					//   	threshold: 50, // 当下拉到超过顶部 50px 时，触发 pullingDown 事件
-					//   	stop: 20 // 刷新数据的过程中，回弹停留在距离顶部还有 20px 的位置
-					// }
+					pullDownRefresh: {
+					  	threshold: 50, // 当下拉到超过顶部 50px 时，触发 pullingDown 事件
+					  	stop: 20 // 刷新数据的过程中，回弹停留在距离顶部还有 20px 的位置
+					}
 				});
 				//用这个实例对象取监听实时滚动的时候将位置给暴露出来
 				this.foodWrapper.on('scroll', (pos) => {
 					//pos.y是一个小数(有正负之分)
 					this.scrollY = Math.abs(Math.round(pos.y));
+					if(pos.y > 50) {
+						this.dropDown = true;
+						console.log('加载数据')
+					}else {
+						this.dropDown = false;
+					}
 					// console.log(this.scrollY);
                 })
 			},
@@ -173,10 +184,11 @@
 					vertical-align: middle
 					font-size: 12px
 					border-1px(rgba(7,17,27,0.1))
-					margin-right: 2px
-					
+					margin-right: 2px		
 		.foods-wrapper
 			flex: 1
+			.drop-down
+				text-align: center
 			.food-list
 				width: 100%
 				.title
@@ -223,5 +235,4 @@
 									font-size: 10px
 									text-decoration: line-through
 									color: rgb(143,153,159)
-
 </style>
