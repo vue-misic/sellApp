@@ -32,6 +32,9 @@
 		 							<span class="now">￥{{ food.price}}</span>
 		 							<span v-show="food.oldPrice" class="old"> {{ food.oldPrice}}</span>
 		 						</div>
+		 						<div class="cart-control">
+		 							<cart-control :food="food"></cart-control>
+		 						</div>
 		 					</div>
 		 				</li>
 		 			</ul>
@@ -39,7 +42,7 @@
 		 	</ul>
 		</div>
 
-		<shop-cart></shop-cart>
+		<shop-cart :delivery-price="seller.deliveryPrice" :min-price="seller.minPrice"></shop-cart>
 	</div>
 </template>
 
@@ -47,8 +50,14 @@
 	import BScroll from 'better-scroll'
 	import vMap from 'components/map/mapClass'
 	import shopCart from 'components/shopCart/shopCart'
+	import cartControl from 'components/cartControl/cartControl'
 	export default {
 		name: 'goods',
+		props: {
+			seller: {
+				type: Object
+			}
+		},
 		data () {
 			return {
 				goods: [],
@@ -60,7 +69,8 @@
 		},
 		components: {
 			vMap,
-			shopCart
+			shopCart,
+			cartControl
 		},
 		created () {
 			this.$http.get('api/goods')
@@ -153,12 +163,11 @@
 	@import '../../common/stylus/mixin.styl'
 	.goods
 		width: 100%
-		display: flex
 		position: absolute
 		top: 174px
 		bottom: 46px
 		overflow: hidden
-		justify-content: left
+		display: flex
 		.menu-wrapper
 			flex: 0 1 80px
 			width: 80px
@@ -177,7 +186,6 @@
 					margin-top: -2px
 					border: 0
 				}
-				/*color: rgb(240,20,20)*/
 				.text
 					width: 100%
 					display: table-cell
@@ -235,4 +243,9 @@
 									font-size: 10px
 									text-decoration: line-through
 									color: rgb(143,153,159)
+							.cart-control
+								position: absolute
+								bottom: 12px
+								right: 12px
+
 </style>

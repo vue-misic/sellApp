@@ -107,7 +107,9 @@
 				评星 => 1.不同的页面用到的星大小不一样(t通过传size里决定)
 						2.有全星有半星或者没有星,添加不同的class类，来显示不同的背景，记住补齐五个星，在计算属性里返回
 
-				flex => flex 布局
+				flex => flex 布局  
+
+					重点中的重点(父元素display： flex 而且有高度,子元素为 flex: 0 0 80px  子元素不设置高度的话会自动默认为继承父元素的高度！！！！！！！！！！)
 
 					父元素的属性(项目) => 
 						首先 display: flex必须要有
@@ -150,6 +152,9 @@
 
 
 		第七章： 
+
+			(在position:absolute下，同时设定left和right或者同时设定top和bottom的话。宽度和高会被拉伸到指定位置,这就是相对body时div宽度或者高度缺省时position:absolute or fixed 情况下，浏览器对容器的尺寸解析方式。)
+
 			上下定高,中间自适应可以滑动
 				foods的视口需要先定义好 => 整个适口就那么大(又要求可以滚动，不影响下面的购物车组件)
 				使用position： absolute; top,bottom将试口占据好固定好大小
@@ -160,7 +165,7 @@
 			父元素 display: table ， 子元素为display： table-cell , vertical-align: middle 这样就达到垂直居中的效果了(table-cell可以等分子盒子)
 
 			better-scroll => 插件
-				实例化以后需要接收一个DOM,第一个参数就是我们 wrapper 的 DOM 对象，第二个是一些配置参数，
+				实例化以后需要接收一个DOM（高度固定的视口）,第一个参数就是我们 wrapper 的 DOM 对象，第二个是一些配置参数，
 				better-scroll 的初始化时机很重要，因为它在初始化的时候，会计算父元素和子元素的高度和宽度，来决定是否可以纵向和横向滚动
 				因为bscroll的原理是给new window.BScroll传入的DOM对象的第一级子级加上transition动画等
 				拿到ul的高度与外层的wrapper做对比，如果超过外层的高度就会触发Bscroll(所以要两层，1.父级, 2.子集)
@@ -171,6 +176,15 @@
 				它同理, 配置了probeType： 3 => 向外派发了一个实时坐标, 然后使用this.foodWrapper.on('scroll',(pos) => {
 					回调函数来接受坐标 scrollY = pos.y;
 				})
+
+
+			props => 传递数据如果时Object,Array 需要用函数返回 => default () {
+				return []// return Object
+			}
+			
+			forEach() 方法用于调用数组的每个元素，并将元素传递给回调函数。
+			array.forEach(function(currentValue, index, arr), thisValue)
+			Array.forEach(每一项元素,index(索引),Array)
 
 
 
