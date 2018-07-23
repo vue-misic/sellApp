@@ -56,7 +56,7 @@
         },
         data () {
             return {
-            	fold: true
+            	flod: true
             }
         },
         components: {
@@ -98,19 +98,21 @@
         	},
         	listshow () {
         		if(!this.totalCount) {
-        			this.fold = true;
+        			this.flod = true;
         			return false;
         		}
-        		let show = !this.fold
+        		let show = !this.flod
         		return show
-        	},
+        	}
         },
         methods: {
         	toggleList () {
         		if(!this.totalCount) {
         			return;
         		}
-        		this.fold = !fold;
+        		console.log('1234');
+        		this.fold = !this.flod;
+        		console.log('3456');
         	}
         }
     }
