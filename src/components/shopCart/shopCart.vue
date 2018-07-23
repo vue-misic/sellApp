@@ -1,6 +1,6 @@
 <template>
     <div class="shop-cart">
-    	<div class="content">
+    	<div class="content" @click="toggleList">
     		<div class="content-left">
     			<div class="logo-wrapper">
     				<div class="logo" :class="{'highlight': totalCount>0}">
@@ -16,10 +16,26 @@
         		{{ payDesc }}
         	</div>
     	</div>
+    	<div class="shopcart-list">
+    		<div class="list-header">
+    			<h1></h1>
+    			<span class="empty"></span>
+    		</div>
+    		<div class="shopcart-wrapper" v-show="listshow">
+    			<ul>
+    				<li v-for=" item in selectFoods">
+    					<span class="name">{{ item.name }}</span>
+    					<span>{{ item.price * item.count}}</span>
+						<cart-control :food="item"></cart-control>
+    				</li>
+    			</ul>
+    		</div>
+    	</div>
     </div>
 </template>
 
 <script>
+	import cartControl from 'components/cartControl/cartControl'
     export default {
         name: 'shop-cart',
         props: {
@@ -34,17 +50,17 @@
         	selectFoods: {
         		type: Array,
         		default() {
-        			return [{
-        				price: 10,
-        				count: 3
-        			}]
+        			return []
         		}
         	}
         },
         data () {
             return {
-
+            	fold: true
             }
+        },
+        components: {
+        	cartControl
         },
         computed: {
         	totalPrice () {
@@ -79,6 +95,22 @@
         		if(this.minPrice > this.totalPrice) {
         			return 'not-enough'
         		}
+        	},
+        	listshow () {
+        		if(!this.totalCount) {
+        			this.fold = true;
+        			return false;
+        		}
+        		let show = !this.fold
+        		return show
+        	},
+        },
+        methods: {
+        	toggleList () {
+        		if(!this.totalCount) {
+        			return;
+        		}
+        		this.fold = !fold;
         	}
         }
     }
@@ -171,5 +203,12 @@
 					color: #fff
 				&.not-enough
 					background-color: #2b333b
-
+			.shopcart-list
+				position: absolute
+				top: 0
+				left: 0
+				width: 100%
+				height: 500px
+				background-color: blue
+				z-index: 50
 </style>

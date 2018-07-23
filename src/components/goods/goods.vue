@@ -42,7 +42,7 @@
 		 	</ul>
 		</div>
 
-		<shop-cart :delivery-price="seller.deliveryPrice" :min-price="seller.minPrice"></shop-cart>
+		<shop-cart :delivery-price="seller.deliveryPrice" :min-price="seller.minPrice" :select-foods="selectFoods"></shop-cart>
 	</div>
 </template>
 
@@ -102,6 +102,17 @@
 					}
 				}
 				return 0;
+			},
+			selectFoods () {
+				let foods = [];
+				this.goods.forEach((good) => {
+					good.foods.forEach((food) => {
+						if(food.count) {
+							foods.push(food);
+						}
+					})
+				})
+				return foods;
 			}
 		},
 		methods: {
@@ -117,7 +128,9 @@
 				this.foodWrapper = new BScroll(this.$refs.foodWrapper,{
 					scrollbar :{
 						fade: true,//// fade 默认为 true，滚动条淡入淡出
+
 					},
+					click: true,
 					probeType: 3,//我们可以使用probeType选项，当此选项设置为 3 时，会在整个滚动过程中实时派发 scroll 事件。从而获取滚动过程中的位置。
 					pullDownRefresh: {
 					  	threshold: 50, // 当下拉到超过顶部 50px 时，触发 pullingDown 事件
@@ -142,13 +155,13 @@
 					// arrHeight = [],
 					foodList;
 				foodList = this.$refs.foodWrapper.getElementsByClassName('food-list-hook');
-				console.log(foodList);
+				// console.log(foodList);
 				this.heightArr.push(height) 
 				for(let i = 0; i < foodList.length; i++) {
 					height += foodList[i].clientHeight;
 					this.heightArr.push(height);
 				}
-				console.log(this.heightArr);
+				// console.log(this.heightArr);
 			},
 			onIndex(index, event) {
 				let foodList = this.$refs.foodWrapper.getElementsByClassName('food-list-hook');
