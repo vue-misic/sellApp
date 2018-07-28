@@ -30,42 +30,44 @@
          <div class="background">
              <img :src="seller.avatar" width="100%" height="100%" alt="" class="">
          </div>
-         <div class="detail" v-show="detailShow" transition="fade">
-             <!-- <div class="detail-wrapper clearfix">
-             </div> -->
-             <div class="detail-wrapper clearfix">
-                 <div class="detail-main">
-                     <div class="name">{{ seller.name }}</div>
-                     <div class="star-wrapper">
-                        <v-star :size="size" :score="seller.score"></v-star> 
-                     </div>
-                     <div class="title">
-                         <div class="line"></div>
-                         <div class="text">优惠信息</div>
-                         <div class="line"></div>  
-                     </div>
-                     <ul class="supports" v-if="seller.supports">
-                         <li v-for="support in seller.supports" :key="support.type" class="support-list">
-                             <!-- <span class="icon" :class="map[support.type]"></span> -->
-                             <map-class :size=2 :class-type="map[support.type]"></map-class>
-                             <span class="text">{{ support.description }}</span>
-                         </li>
-                     </ul>
+         <transition name="detail">
+             <div class="detail" v-show="detailShow">
+                 <!-- <div class="detail-wrapper clearfix">
+                 </div> -->
+                 <div class="detail-wrapper clearfix">
+                     <div class="detail-main">
+                         <div class="name">{{ seller.name }}</div>
+                         <div class="star-wrapper">
+                            <v-star :size="size" :score="seller.score"></v-star> 
+                         </div>
+                         <div class="title">
+                             <div class="line"></div>
+                             <div class="text">优惠信息</div>
+                             <div class="line"></div>  
+                         </div>
+                         <ul class="supports" v-if="seller.supports">
+                             <li v-for="support in seller.supports" :key="support.type" class="support-list">
+                                 <!-- <span class="icon" :class="map[support.type]"></span> -->
+                                 <map-class :size=2 :class-type="map[support.type]"></map-class>
+                                 <span class="text">{{ support.description }}</span>
+                             </li>
+                         </ul>
 
-                     <div class="title">
-                         <div class="line"></div>
-                         <div class="text">商家公告</div>
-                         <div class="line"></div>  
+                         <div class="title">
+                             <div class="line"></div>
+                             <div class="text">商家公告</div>
+                             <div class="line"></div>  
+                         </div>
+                         <p class="bulltin-text">
+                             {{ seller.bulletin }}
+                         </p> 
                      </div>
-                     <p class="bulltin-text">
-                         {{ seller.bulletin }}
-                     </p> 
+                 </div>
+                 <div class="fotter" @click="closeDetail">
+                     <i class="icon-close"></i>
                  </div>
              </div>
-             <div class="fotter" @click="closeDetail">
-                 <i class="icon-close"></i>
-             </div>
-         </div>
+        </transition>
 	</div>
 </template>
 
@@ -239,10 +241,9 @@
         z-index: 100
         overflow: auto
         backdrop-filter: blur(10px)/* 适用与ios*/
-        &.fade-transtion
-            opacity: 1
-            background-color: rgba(7,17,27,0.8)
-        &.fade-enter,&.fade-leave
+        &.detail-enter-active, &.detail-leave-active
+            transition: all 0.5s
+        &.detail-enter,&.detail-leave-active
             opacity: 0
             background-color: rgba(7,17,27,0)
     .detail-wrapper

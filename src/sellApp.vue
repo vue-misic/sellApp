@@ -185,8 +185,45 @@
 			forEach() 方法用于调用数组的每个元素，并将元素传递给回调函数。
 			array.forEach(function(currentValue, index, arr), thisValue)
 			Array.forEach(每一项元素,index(索引),Array)
+			
+
+			transition => 过渡动画transition组件
+				<transition>
+					包裹切换的元素或者组件(包含v-if/v-show)
+				</transition>
+				过渡分为两个阶段
+						enter 										leave
+															v-leave			v-leave-to			1(start)			0(end)				|					|
+					0(start)		1(end)						_____________________	
+				v-enter			v-enter-to
+					|				|									|
+					_________________
+							|									过程(v-leave-active)
+						过程(v-enter-active)
+					
+					v-enter-active,v-leave-active => 定义transition 的过渡 transition: all ,0.5
+					v-enter,v-leave-active => 定义结束后的状态(如果这里直接是v-leave就直接刚开始结束了)
+
+					理解为只是一个动态的添加一个class的过程，让某个属性值从0到1的状态，通过动态的加class来达到效果
+
+				在进入/离开的过渡中，会有 6 个 class 切换。
+
+			    v-enter：定义进入过渡的开始状态。在元素被插入之前生效，在元素被插入之后的下一帧移除。
+
+			    v-enter-active：定义进入过渡生效时的状态。在整个进入过渡的阶段中应用，在元素被插入之前生效，在过渡/动画完成之后移除。这个类可以被用来定义进入过渡的过程时间，延迟和曲线函数。
+
+			    v-enter-to: 2.1.8版及以上 定义进入过渡的结束状态。在元素被插入之后下一帧生效 (与此同时 v-enter 被移除)，在过渡/动画完成之后移除。
+
+			    v-leave: 定义离开过渡的开始状态。在离开过渡被触发时立刻生效，下一帧被移除。
+
+			    v-leave-active：定义离开过渡生效时的状态。在整个离开过渡的阶段中应用，在离开过渡被触发时立刻生效，在过渡/动画完成之后移除。这个类可以被用来定义离开过渡的过程时间，延迟和曲线函数。
+
+			    v-leave-to: 2.1.8版及以上 定义离开过渡的结束状态。在离开过渡被触发之后下一帧生效 (与此同时 v-leave 被删除)，在过渡/动画完成之后移除。
 
 
+			    ref 被用来给元素或子组件注册引用信息。引用信息将会注册在父组件的 $refs 对象上。如果在普通的 DOM 元素上使用，引用指向的就是 DOM 元素；如果用在子组件上，引用就指向组件实例：
+			    所以可以直接访问到子组件的实例方法 this.$refs.contentWrapper.close();
+			    <child-component ref="child"></child-component>
 
 	*/
 </script>

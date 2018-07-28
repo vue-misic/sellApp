@@ -40,6 +40,7 @@
 <style lang="stylus">
 	.cart-wrapper
 		font-size: 0
+		display: inline-block
 		.cart-decrese,.cart-add
 			display: inline-block
 			font-size: 24px
@@ -49,7 +50,6 @@
 			vertical-align: -4px
 		.cart-count
 			display: inline-block
-
 			font-size: 10px
 			line-height: 24px
 			color: rgb(147,153,159)

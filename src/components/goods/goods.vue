@@ -167,7 +167,7 @@
 				let foodList = this.$refs.foodWrapper.getElementsByClassName('food-list-hook');
 				let el = foodList[index];
 				this.foodWrapper.scrollToElement(el, 300)
-			}
+			},
 		}
 	}
 </script>
