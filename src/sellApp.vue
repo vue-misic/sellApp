@@ -225,5 +225,8 @@
 			    所以可以直接访问到子组件的实例方法 this.$refs.contentWrapper.close();
 			    <child-component ref="child"></child-component>
 
+				
+			第八章： => 等宽等高布局(width: 100% height: 0 padding-top: 100%) =>padding根据宽的宽度自动计算高度
+
 	*/
 </script>

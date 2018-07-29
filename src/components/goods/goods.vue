@@ -17,7 +17,7 @@
 		 		<li v-for="item in goods" class="food-list food-list-hook">
 		 			<h1 class="title">{{ item.name }}</h1>
 		 			<ul class="food-wrapper">
-		 				<li v-for="food in item.foods" class="food-item border-1px">
+		 				<li v-for="food in item.foods" class="food-item border-1px" @click="selectedFood(food,$event)">
 		 					<div class="icon">
 		 						<img width="57" height="57" :src="food.icon" alt="">
 		 					</div>
@@ -43,6 +43,8 @@
 		</div>
 
 		<shop-cart :delivery-price="seller.deliveryPrice" :min-price="seller.minPrice" :select-foods="selectFoods"></shop-cart>
+
+		<v-food :food="selectFood" ref="food"></v-food>
 	</div>
 </template>
 
@@ -51,6 +53,7 @@
 	import vMap from 'components/map/mapClass'
 	import shopCart from 'components/shopCart/shopCart'
 	import cartControl from 'components/cartControl/cartControl'
+	import vFood from 'components/food/food'
 	export default {
 		name: 'goods',
 		props: {
@@ -64,13 +67,15 @@
 				map: ['decrease', 'discount', 'guarantee', 'invoice', 'special'],
 				dropDown: false,
 				scrollY: 0,
-				heightArr: []
+				heightArr: [],
+				selectFood: {}
 			}
 		},
 		components: {
 			vMap,
 			shopCart,
-			cartControl
+			cartControl,
+			vFood
 		},
 		created () {
 			this.$http.get('api/goods')
@@ -168,11 +173,17 @@
 				let el = foodList[index];
 				this.foodWrapper.scrollToElement(el, 300)
 			},
+			selectedFood(food,event) {
+				this.selectFood = food;
+				console.log(this.selectFood);
+				this.$refs.food.show();
+			},
+
 		}
 	}
 </script>
 
-<style lang="stylus" rel="stylesheet">
+<style lang="stylus" rel="stylesheet" scoped>
 	@import '../../common/stylus/mixin.styl'
 	.goods
 		width: 100%
