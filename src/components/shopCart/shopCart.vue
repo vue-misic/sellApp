@@ -24,7 +24,7 @@
             		</div>
             		<div class="shopcart-wrapper" ref="shopcartWrapper">
             			<ul class="new-wrapper">
-            				<li v-for=" item in selectFoods" class="food-name">
+            				<li v-for="item in selectFoods" :key="item.name" class="food-name">
             					<span class="name">{{ item.name }}</span>
             					<span class="food-price">{{ item.price * item.count}}</span>
                                 <div class="cartcontrol-wrapper">
@@ -253,7 +253,7 @@
             z-index: -1
             transform: translate3d(0,-100%,0)
             &.fade-enter-active, &.fade-leave-active
-                transition: all 5s
+                transition: all 0.5s
 
             &.fade-enter, &.fade-leave-active
                 transform: translate3d(0,0,0)

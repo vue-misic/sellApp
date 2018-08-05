@@ -1,6 +1,9 @@
 <template>
 	<div class="ratings">
-		 this is ratings
+		this is ratings
+		<p>
+			<span>this is span</span>
+		</p>
 	</div>
 </template>
 

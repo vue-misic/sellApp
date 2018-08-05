@@ -18,13 +18,24 @@
 						<span class="now">￥{{ food.price}}</span>
 						<span v-show="food.oldPrice" class="old"> {{ food.oldPrice}}</span>
 					</div>
-					<div class="cartcontrol-wrapper">
+					<div class="cartcontrol-wrapper" v-show="cartShow">
 						<cart-control :food="food"></cart-control>
 					</div>
-					<div class="buy" v-show="food.count || food.count ===0 " @click="addFirst">
+					<div class="buy" v-show="!food.count || food.count===0" @click="addFirst">
 						加入购物车
 					</div>
 				</div>
+				<div class="description">
+					<h1 class="title">商品详情</h1>
+					<p class="info">{{ food.info }}</p>
+				</div>
+				<div class="rating">
+					<div class="title">商品评价</div>
+					<div class="rating-wrapper">
+						<rating-select :desc="desc" :select-type="selectType" :only-content="onlyContent" :ratings="food.ratings"></rating-select>
+					</div>
+				</div>
+
 			</div>
 		</div>
 	</transition>
@@ -32,12 +43,26 @@
 
 <script>
 	import Bscroll from 'better-scroll'
+	import Vue from 'vue'
 	import cartControl from 'components/cartControl/cartControl'
+	import ratingSelect from 'components/ratingSelect/ratingSelect'
+	const ALL = 2,
+		  POSITIVE = 0,
+		  NEGATIVE = 1;
+
 	export default {
 		name: 'food',
 		data () {
 			return {
-				showFlag: false
+				showFlag: false,
+				cartShow: false,
+				desc: {
+					all: '全部',
+					positive: '满意',
+					negative: '不满意'
+				},
+				selectType: ALL,
+				onlyContent: true
 			}
 		},
 		props: {
@@ -46,11 +71,15 @@
 			}
 		},
 		components: {
-			cartControl
+			cartControl,
+			ratingSelect
 		},
 		methods: {
 			show () {
 				this.showFlag = true;
+				//初始化
+				this.selectType = ALL;
+				this.onlyContent = true;
 				this.$nextTick(() => {
 					if(!this.scroll) {
 						this.scroll = new Bscroll(this.$refs.foodConent,{
@@ -66,7 +95,10 @@
 				this.showFlag = false;
 			},
 			addFirst () {
-
+				this.cartShow = true;
+				if(!this.food.count) {
+					Vue.set(this.food, 'count', 1);
+				}
 			}
 		}
 	}
@@ -80,7 +112,7 @@
 		left: 0
 		right: 0
 		z-index: 30
-		background-color: #fff;
+		background-color: #f3f5f7
 		&.move-enter-active, &.move-leave-active
 			transition: all 0.5s
 		&.move-enter
@@ -108,6 +140,8 @@
 					font-size: 14px
 					color: #fff
 		.contenter
+			position: relative
+			background #fff
 			width: 100%
 			box-sizing: border-box
 			padding: 18px 18px
@@ -131,19 +165,48 @@
 					font-size: 10px
 					text-decoration: line-through
 					color: rgb(143,153,159)
-		.cartcontrol-wrappe
-			position: absolute
-			bottom: 12px
-			right: 18px
-			z-index: 10
-		.buy
-			position: absolute
-			right: 18px
-			bottom: 18px
-			padding: 6px 12px
-			color: #fff
-			background-color: rgb(0,160,220)
-			border-raduis: 12px
-			font-size: 10px
-			line-height: 12px
+			.cartcontrol-wrapper
+				position: absolute
+				bottom: 12px
+				right: 12px	
+			.buy
+				position: absolute
+				right: 18px
+				bottom: 18px
+				padding: 6px 12px
+				color: #fff
+				background-color: rgb(0,160,220)
+				border-radius: 12px
+				font-size: 10px
+				line-height: 12px
+				z-index: 10
+		.description
+			margin-top: 16px
+			margin-bottom: 16px
+			background-color: #fff
+			box-sizing : border-box
+			width: 100%
+			padding: 18px
+			.title
+				font-weight: 700
+				font-size: 14px
+				margin-bottom: 6px
+				color: rgb(7,17,27)
+			.info
+				font-size: 12px
+				color: rgb(77,85,93)
+		.rating
+			width: 100%
+			background-color #fff
+			box-sizing: border-box
+			padding-top: 18px
+			.title
+				margin-left: 18px
+				font-weight: 700
+				font-size: 14px
+				margin-bottom: 6px
+				color: rgb(7,17,27)
+
+
+
 </style>

@@ -14,10 +14,10 @@
 		<div class="foods-wrapper" ref="foodWrapper">
 		 	<ul>
 		 		<p class="drop-down" v-if="dropDown">松手刷新数据...</p>
-		 		<li v-for="item in goods" class="food-list food-list-hook">
+		 		<li v-for="item in goods" :key="item.name" class="food-list food-list-hook">
 		 			<h1 class="title">{{ item.name }}</h1>
 		 			<ul class="food-wrapper">
-		 				<li v-for="food in item.foods" class="food-item border-1px" @click="selectedFood(food,$event)">
+		 				<li v-for='food in item.foods' :key="food.name" class="food-item border-1px" @click.stop="selectedFood(food,$event)">
 		 					<div class="icon">
 		 						<img width="57" height="57" :src="food.icon" alt="">
 		 					</div>

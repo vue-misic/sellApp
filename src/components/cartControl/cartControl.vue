@@ -1,8 +1,8 @@
 <template>
 	<div class="cart-wrapper">
-		<div class="cart-decrese icon-remove_circle_outline" v-show="food.count > 0" @click="cartDecrese"></div>
+		<div class="cart-decrese icon-remove_circle_outline" v-show="food.count > 0" @click.stop="cartDecrese"></div>
 		<div class="cart-count" v-show="food.count > 0">{{ food.count }}</div>
-		<div class="cart-add icon-add_circle" @click="addCard"></div>
+		<div class="cart-add icon-add_circle" @click.stop="addCard"></div>
 	</div>
 </template>
 
