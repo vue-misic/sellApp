@@ -44,9 +44,46 @@
 		第四章： mock数据配置
 			express启动服务监听获取数据
 
-				创建一个 Express 应用。express() 是一个由 express 模块导出的入口（top-level）函数
+				使用express框架创建一个web应用,创建一个 Express 应用。express() 是一个由 express 模块导出的入口（top-level）函数
 				var express = require('express');
-				var app = express();
+				var app = express();//创建express服务实例
+
+				//=> 如果不用路由直接使用app.get('/api/goods') == app.get('/api/sellers')
+
+				app.get() => 服务请求方式
+				app.post()
+
+				app.listen(3000,() => {
+					console.log('服务启动')
+				}) => 启动一个服务并监听从 3000 端口进入的所有连接请求。他将对所有 (/) URL 或 路由 返回 “这是一个 Express 应用” 字符串
+				
+				Express 的主要内容有两个：
+						
+					路由 => (比app.get提取公共api,写法较为见简便)
+						var express=require('express');
+						var router=express.Router();
+						app.use('/api', routers) => 提取了所有接口共有的'api'
+						并且路由和get/post方法一起写了
+
+						app.use('/api', routers)
+						路由（Routing）是由一个 URI（或者叫路径）和一个特定的 HTTP 方法（GET、POST 等）组成的，涉及到应用如何响应客户端对某个网站节点的访问。
+						const express = require('express');
+						let router = express.Router();
+
+						router.get('/', (req, res, nest) => {
+							res.render('orders',{msg:'订单首页'})
+						})
+
+						router.get('/list',(req,res,next) => {
+		    				res.send('订单列表')
+						})
+						module.exports = router
+
+						每一个路由都可以有一个或者多个处理器函数，当匹配到路由时，这个或者这些函数将被执行。
+
+					中间件
+
+
 				
 				//实例对象的请求服务 => 
 				必须配置在devServer中才能生效 .get('/api/')也可以用路由配置
@@ -111,7 +148,7 @@
 
 					重点中的重点(父元素display： flex 而且有高度,子元素为 flex: 0 0 80px  子元素不设置高度的话会自动默认为继承父元素的高度！！！！！！！！！！)
 
-					父元素的属性(项目) => 
+					父元素的属性(容器) => 
 						首先 display: flex必须要有
 						flex-direction：属性决定主轴的方向（即项目的排列方向）
 							flex-direction: row | row-reverse | column | column-reverse;
@@ -145,7 +182,7 @@
 				transition:过度
 					标签加 transition="fade" 加transition的class
 					css加 fade-transition => 最后要的那个状态  opcity: 1 (主要用来过渡使用) background: rgba(7,17,27,0.8)
-					fade-enter,fade-leave => opcity : 0 从无到有的意思 
+					fade-enter,fade-leave-active => opcity : 0 从无到有的意思 
 					过渡的元素设置动画效果 transtion: all 0.5s
 
 				backdrop-filter: blur(10px) => 适用于ios的背景模糊效果
@@ -179,7 +216,7 @@
 
 
 			props => 传递数据如果时Object,Array 需要用函数返回 => default () {
-				return []// return Object
+				return []// return {}
 			}
 			
 			forEach() 方法用于调用数组的每个元素，并将元素传递给回调函数。
@@ -227,6 +264,11 @@
 
 				
 			第八章： => 等宽等高布局(width: 100% height: 0 padding-top: 100%) =>padding根据宽的宽度自动计算高度
+				
+			
+
+
+
 
 	*/
 </script>
