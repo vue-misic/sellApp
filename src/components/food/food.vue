@@ -31,11 +31,25 @@
 				</div>
 				<div class="rating">
 					<div class="title">商品评价</div>
+					<rating-select @select-change="onSelectChange" @toggle-change="onToggle" :desc="desc" :select-type="selectType" :only-content="onlyContent" :ratings="food.ratings"></rating-select>
 					<div class="rating-wrapper">
-						<rating-select :desc="desc" :select-type="selectType" :only-content="onlyContent" :ratings="food.ratings"></rating-select>
+						<ul v-show="food.ratings && food.ratings.length">
+							<li v-for="item in food.ratings" :key="item.username" class="rating-item">
+								<div class="user">
+									<span class="name">{{ item.username }}</span>
+									<img class="avatar" :src="item.avatar" alt="" width="12">
+								</div>
+								<div class="time">{{ item.rateTime }}</div>
+								<p class="text">
+									<span :class="{'icon-thumb_up': item.rateType===0,'icon-thumb_down': item.rateType===1}"></span>
+									{{ item.text }}
+								</p>
+							</li>
+						</ul>
+						<div class="noratings" v-show="!food.ratings || !food.ratings.length"></div>
 					</div>
 				</div>
-
+				
 			</div>
 		</div>
 	</transition>
@@ -99,6 +113,12 @@
 				if(!this.food.count) {
 					Vue.set(this.food, 'count', 1);
 				}
+			},
+			onSelectChange (type) {
+				this.selectType = type;
+			},
+			onToggle () {
+				this.onlyContent = !this.onlyContent;
 			}
 		}
 	}
@@ -206,6 +226,43 @@
 				font-size: 14px
 				margin-bottom: 6px
 				color: rgb(7,17,27)
+			.rating-wrapper
+				box-sizing: border-box
+				padding: 12px 18px
+				box-sizing: border-box
+				width: 100%
+				.rating-item
+					position: relative
+					.user
+						position: absolute
+						right: 0
+						top: 0
+						font-size: 10px
+						color: rgb(147,153,159)
+						line-height 12px
+						.name
+							display: inline-block
+						.avatar
+							border-radius: 50%
+							display: inline-block
+							vertical-align: top
+					.time
+						font-size: 10px
+						color: rgb(147,153,159)
+						line-height: 24px
+					.text
+						margin-right: 4px
+						font-size: 12px
+						color: rgb(7,17,27)
+						line-height: 16px
+						.icon-thumb_up
+							line-height: 24px
+							color: rgb(0,160,220)
+						.icon-thumb_down
+							line-height: 24px
+							color: rgb(147,153,159)
+
+
 
 
 

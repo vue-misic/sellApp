@@ -1,12 +1,15 @@
 <template>
     <div class="rating-select">
         <div class="rating-type">
-            <span class="block positive" :class="{active:selectType===2}">{{ desc.all }}<span class="count" :class="{active:selectType===2}">50</span></span>
-            <span class="block positive"  :class="{active:selectType===0}">{{ desc.positive }}<span class="count" :class="{active:selectType===0}">40</span></span>
-            <span class="block negative"  :class="{active:selectType===1}">{{ desc.negative }}<span class="count" :class="{active:selectType===1}">10</span></span>
+            <span class="block positive" :class="{active:selectType===2}" @click="select(2, $event)">
+                {{ desc.all }}<span class="count">{{ ratings.length }}</span></span>
+            <span class="block positive"  :class="{active:selectType===0}" @click="select(0, $event)">
+                {{ desc.positive }}<span class="count">{{ positive.length }}</span></span>
+            <span class="block negative"  :class="{active:selectType===1}" @click="select(1, $event)">
+                {{ desc.negative }}<span class="count">{{ negative.length}}</span></span>
         </div>            
         <div class="rating-switch" :class="{on: onlyContent}">
-            <span class="icon-check_circle"></span>
+            <span class="icon-check_circle" @click="toggleChange"></span>
             <span class="text">只看有内容的评价</span>
         </div>
     </div>
@@ -44,6 +47,28 @@ export default {
                 }
             }
         }
+    },
+    computed: {
+        positive () {
+            return this.ratings.filter((item) => {
+                return item.rateType == POSITIVE;
+            })
+        },
+        negative () {
+            return this.ratings.filter((item) => {
+                return item.rateType == NEGATIVE;
+            })
+        }
+    },
+    methods: {
+        select (type,event) {
+            // this.selectType = type;
+            // console.log(event);
+            this.$emit('select-change', type);
+        },
+        toggleChange () {
+            this.$emit('toggle-change');
+        }
     }
 }
 </script>
@@ -79,7 +104,7 @@ export default {
             width: 100%
             box-sizing: border-box
             padding: 12px 18px
-            border-bottom: 1px solid rgb(7, 17, 27, 0.1)
+            border-bottom: 1px solid rgba(7, 17, 27, 0.1)
             color: rgb(147, 153, 159)
             &.on
                 .icon-check_circle

@@ -106,6 +106,7 @@
 						需要添加的div后面设置伪类:after定义这条线然后进行缩放看着像1px => 伪类content不要漏写
 						1.mixin中定义一个函数 border-1px($color) => 公用的属性样式集合(函数属性集合)，谁引用谁就有定义的属性
 							stylus引入函数需要@import + 路径 语法
+						2.另外一个border-1px是一个class
 						2.进行伪类缩放 属性 定义需要缩放的标签添加某个属性就可以了
 							c3的媒体查询属性     @media 媒体类型and （媒体特性）{你的样式}
 
@@ -219,10 +220,18 @@
 				return []// return {}
 			}
 			
-			forEach() 方法用于调用数组的每个元素，并将元素传递给回调函数。
+			forEach(callBack) 方法用于调用数组的每个元素，并将元素传递给回调函数。
+			***  数组每个元素都执行一次回调函数。
 			array.forEach(function(currentValue, index, arr), thisValue)
-			Array.forEach(每一项元素,index(索引),Array)
+			Array.forEach(function(每一项元素,index(索引),Array))
 			
+			filter(callBack) 方法创建一个新的数组，新数组中的元素是通过检查指定数组中符合条件的所有元素。
+			*** 检测数值元素，并返回符合条件所有元素的数组。
+			array.filter(function(currentValue,index,arr), thisValue)
+			Array.filter((item) => {
+				过滤条件
+			})
+
 
 			transition => 过渡动画transition组件
 				<transition>
