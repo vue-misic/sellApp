@@ -34,19 +34,21 @@
 					<rating-select @select-change="onSelectChange" @toggle-change="onToggle" :desc="desc" :select-type="selectType" :only-content="onlyContent" :ratings="food.ratings"></rating-select>
 					<div class="rating-wrapper">
 						<ul v-show="food.ratings && food.ratings.length">
-							<li v-for="item in food.ratings" :key="item.username" class="rating-item">
+							<li v-show="needShow(item.rateType, item.text)" v-for="item in food.ratings" :key="item.username" class="rating-item">
 								<div class="user">
 									<span class="name">{{ item.username }}</span>
 									<img class="avatar" :src="item.avatar" alt="" width="12">
 								</div>
-								<div class="time">{{ item.rateTime }}</div>
+								<div class="time">{{ item.rateTime | formatDate }}</div>
 								<p class="text">
 									<span :class="{'icon-thumb_up': item.rateType===0,'icon-thumb_down': item.rateType===1}"></span>
 									{{ item.text }}
 								</p>
 							</li>
 						</ul>
-						<div class="noratings" v-show="!food.ratings || !food.ratings.length"></div>
+						<div class="noratings" v-show="!food.ratings || !food.ratings.length">
+							暂无评价
+						</div>
 					</div>
 				</div>
 				
@@ -58,6 +60,7 @@
 <script>
 	import Bscroll from 'better-scroll'
 	import Vue from 'vue'
+	import { formatDateValue } from '../../common/js/date.js'
 	import cartControl from 'components/cartControl/cartControl'
 	import ratingSelect from 'components/ratingSelect/ratingSelect'
 	const ALL = 2,
@@ -76,12 +79,18 @@
 					negative: '不满意'
 				},
 				selectType: ALL,
-				onlyContent: true
+				onlyContent: false
 			}
 		},
 		props: {
 			food: {
 				type: Object
+			}
+		},
+		filters: {
+			formatDate (time) {
+				let date = new Date(time);
+				return formatDateValue(date, 'yyyy-MM-dd hh:mm:ss')
 			}
 		},
 		components: {
@@ -93,7 +102,7 @@
 				this.showFlag = true;
 				//初始化
 				this.selectType = ALL;
-				this.onlyContent = true;
+				this.onlyContent = false;
 				this.$nextTick(() => {
 					if(!this.scroll) {
 						this.scroll = new Bscroll(this.$refs.foodConent,{
@@ -104,6 +113,20 @@
 					}
 					
 				})
+			},
+			needShow (type, text) {
+				if(this.onlyContent) {
+					if(text) {
+						return true;
+					}else {
+						return false;
+					}
+				}
+				if(this.selectType === ALL) {
+					return true;
+				}else {
+					return this.selectType === type
+				}
 			},
 			close () {
 				this.showFlag = false;
@@ -116,9 +139,15 @@
 			},
 			onSelectChange (type) {
 				this.selectType = type;
+				this.$nextTick(() => {
+					this.scroll.refresh();
+				})
 			},
 			onToggle () {
 				this.onlyContent = !this.onlyContent;
+				this.$nextTick(() => {
+					this.scroll.refresh();
+				})
 			}
 		}
 	}
@@ -261,6 +290,10 @@
 						.icon-thumb_down
 							line-height: 24px
 							color: rgb(147,153,159)
+				.noratings
+					padding: 16px 0
+					font-size: 12px
+					color: rgb(147,153,159)
 
 
 
