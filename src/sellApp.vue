@@ -273,6 +273,18 @@
 
 				
 			第八章： => 等宽等高布局(width: 100% height: 0 padding-top: 100%) =>padding根据宽的宽度自动计算高度
+
+
+			第九章： => 媒体查询的使用，是css的属性只不过不是常规形式而已
+					substring(indexStart,indexEnd) 如果indexEnd省略，则将字符提取到字符串的末尾。
+					这些substring()和substr()方法之间存在细微差别，你应该注意不要让它们混淆。
+					参数  substring() 表示起始索引和结束索引，不包含 => 截取出来的字符串不包含右边
+					而参数substr() 表示起始索引和要包含在返回字符串中的字符长度。
+
+					indexOf() 方法返回调用  String 对象中第一次出现的指定值的索引，开始在 fromIndex进行搜索。
+					如果未找到该值，则返回-1,找到返回索引值
+					str.indexOf(searchValue[, fromIndex])
+					表示调用该方法的字符串中开始查找的位置。可以是任意整数。默认值为 0
 				
 			
 
