@@ -16,12 +16,14 @@
 
 <script>
   import vHeader from 'components/header/header'
+  import { parseUrl } from './common/js/utils'
   const ERR_OK = 0;
 export default {
   name: 'App',
   data () {
     return {
-        seller: {}
+        seller: {
+        }
     };
   },
   components: {

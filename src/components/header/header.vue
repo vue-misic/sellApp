@@ -74,6 +74,7 @@
 <script>
     import vStar from 'components/star/star' 
     import mapClass from 'components/map/mapClass' 
+    
 	export default {
         name: 'heade',
         data () {
@@ -90,6 +91,7 @@
             vStar,
             mapClass
         },
+      
         computed: {
             //计算属性返回的是一个值不是某个函数 isMap是一个值，不能再DOM用 isMap() 只能用isMap
             //所以不能用到传参，直接处理data数据
@@ -114,7 +116,7 @@
     }
 </script>
 
-<style lang="stylus">
+<style lang="stylus" scoped>
     @import '../../common/stylus/mixin.styl'
 .heade
     position: relative

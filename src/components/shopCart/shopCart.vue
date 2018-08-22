@@ -158,7 +158,7 @@
     }
 </script>
 
-<style lang="stylus">
+<style lang="stylus" scoped>
     .shop-cart
         position: fixed
         bottom: 0

@@ -285,6 +285,79 @@
 					如果未找到该值，则返回-1,找到返回索引值
 					str.indexOf(searchValue[, fromIndex])
 					表示调用该方法的字符串中开始查找的位置。可以是任意整数。默认值为 0
+
+
+			第十章： =>
+				css3伪类 (一般用于被触发时添加class)
+				
+				=> 被添加到一个选择器末尾的关键字，当你希望样式在特定状态下才被呈现到指定的元素时，
+				你可以往元素的选择器后面加上对应的伪类（pseudo-class）
+					li:nth-child(n)
+					a:hover
+					li:first-child
+					li:last-child
+					li:nth-child
+
+				css3伪元素  (用于不添加标签和结构，达到某中样式)
+				
+				=>  同样是添加到选择器后面去选择某个元素的某个部分
+					li::first-letter
+					li::first-line
+					li::after
+					li::before
+
+				better-scroll 实例一定是在拿到DOM才有效，一位this.$nextTick(() => {})
+					option： => scrollX
+						类型：Boolean
+						默认值: false
+						作用：当设置为 true 的时候，可以开启横向滚动。
+						备注：当设置 eventPassthrough 为 'horizontal' 的时候，该配置无效。
+
+					option: => eventPassthrough
+						类型： String
+						默认值：''
+						可选值：'vertical'、'horizontal'
+						作用：有时候我们使用 better-scroll 在某个方向模拟滚动的时候，希望在另一个方向保留原生的滚动
+						（比如轮播图，我们希望横向模拟横向滚动，而纵向的滚动还是保留原生滚动，我们可以设置 eventPassthrough 为 vertical；
+						相应的，如果我们希望保留横向的原生滚动，可以设置eventPassthrough为 horizontal）。
+						备注：eventPassthrough 的设置会导致其它一些选项配置无效，需要小心使用它。
+
+				(string)split: => 方法
+						split() 方法使用指定的分隔符字符串将一个String对象分割成字符串数组，
+						以将字符串分隔为子字符串，以确定每个拆分的位置。
+						
+						找到分隔符后，将其从字符串中删除，并将子字符串的数组返回。如果没有找到或者省略了分隔符，
+						则该数组包含一个由整个字符串组成的元素。如果分隔符为空字符串，则将str转换为字符数组
+						str.split(separator[,limit]) 
+
+
+
+
+				(string)match: => 方法
+
+					将字符串按照正则表达时的匹配规则返回一个数组，也就是match方法只能创一个正则表达式参数
+					str.match(regexp);
+
+					var str = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+					var regexp = /[A-E]/gi;
+					var matches_array = str.match(regexp);
+					console.log(matches_array);
+					// ['A', 'B', 'C', 'D', 'E', 'a', 'b', 'c', 'd', 'e']
+
+
+				import { parseUrl } from '../../common/js/utils'
+					为什么 引入的方法名与export的方法名要一直，因为如果utils里可能有多个方法，
+					如果方法名随便取你不知道引入的是哪一个方法,引入的方法相当于这个页面的全局方法
+					可以直接访问使用
+
+
+				obj[key] => key可以是一个变量
+				obj.key => key是一个属性
+				obj['key'] => key是一个属性
+
+				
+				##transition: js动画
+				##本地收藏的状态存取
 				
 			
 

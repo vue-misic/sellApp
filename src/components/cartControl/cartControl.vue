@@ -37,7 +37,7 @@
 	}
 </script>
 
-<style lang="stylus">
+<style lang="stylus" scoped>
 	.cart-wrapper
 		font-size: 0
 		display: inline-block
